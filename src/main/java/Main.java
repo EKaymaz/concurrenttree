@@ -4,7 +4,7 @@ import java.util.concurrent.Executors;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        int max_t = 10;
+        int maxThreadCount = 10;
         BinarySearchTree tree = new BinarySearchTree();
 
         Runnable producer = new Producer(tree, 800);
@@ -15,7 +15,7 @@ public class Main {
         Runnable consumer_5 = new Consumer(tree, 3000);
         Runnable consumer_6 = new Consumer(tree, 4000);
 
-        ExecutorService pool = Executors.newFixedThreadPool(max_t); // initializing thread pool
+        ExecutorService pool = Executors.newFixedThreadPool(maxThreadCount); // initializing thread pool
 
         pool.execute(producer);
         pool.execute(consumer_1);
