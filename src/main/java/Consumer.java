@@ -4,11 +4,11 @@
 public class Consumer extends BaseWorker implements Runnable {
 
     /**
-     * @param tree      data structure to be consumed
-     * @param sleepTime specifies the period
+     * @param tree   data structure to be consumed
+     * @param period specifies the period
      */
-    public Consumer(BinarySearchTree tree, Integer sleepTime) {
-        super(tree, sleepTime);
+    public Consumer(BinarySearchTree tree, Integer period) {
+        super(tree, period);
     }
 
     /**
@@ -17,7 +17,7 @@ public class Consumer extends BaseWorker implements Runnable {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(sleepTime);
+                Thread.sleep(period);
                 System.out.println(Thread.currentThread().getName() + " calculated number of Nodes :" + tree.size());
             } catch (InterruptedException e) {
                 e.printStackTrace();
