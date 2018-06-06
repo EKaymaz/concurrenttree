@@ -53,41 +53,27 @@ public class BinarySearchTree<K extends Comparable> {
 
         Node tmpNode = root;
         Node parent = null;
-        Node lockedNode = null;
 
-        try {
-            while (tmpNode != null) {
-                parent = tmpNode;
-
-                if (lockedNode != null) {
-                    lockedNode.mutex.release();
-                }
-
-                lockedNode = tmpNode;
-
-                lockedNode.mutex.acquire();
-
-                if (key.compareTo(tmpNode.key) < 0) {
-                    tmpNode = tmpNode.left;
-                } else if (key.compareTo(tmpNode.key) >= 0) {
-                    tmpNode = tmpNode.right;
-                }
-            }
-
-            Node node = new Node(key);
-            if (parent.key.compareTo(node.key) > 0) {
-                parent.left = node;
-            } else {
-                parent.right = node;
-            }
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            if (lockedNode != null) {
-                lockedNode.mutex.release(); // must be released in case of any exception
+        while (tmpNode != null) {
+            parent = tmpNode;
+            if (key.compareTo(tmpNode.key) < 0) {
+                tmpNode = tmpNode.left;
+            } else if (key.compareTo(tmpNode.key) >= 0) {
+                tmpNode = tmpNode.right;
             }
         }
+
+        Node node = new Node(key);
+
+        parent.mutex.acquire();
+
+        if (parent.key.compareTo(node.key) > 0) {
+            parent.left = node;
+        } else {
+            parent.right = node;
+        }
+
+        parent.mutex.release();
 
         return root;
     }
