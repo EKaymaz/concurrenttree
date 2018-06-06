@@ -81,13 +81,11 @@ public class BinarySearchTree<K extends Comparable> {
                 parent.right = node;
             }
 
-            Thread.sleep(100);
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
             if (lockedNode != null) {
-                lockedNode.mutex.release();
+                lockedNode.mutex.release(); // must be released in case of any exception
             }
         }
 
@@ -125,7 +123,7 @@ public class BinarySearchTree<K extends Comparable> {
                 e.printStackTrace();
             } finally {
                 if (node != null) {
-                    node.mutex.release(); // releasing the node
+                    node.mutex.release(); // must be released in case of any exception
                 }
             }
         }

@@ -4,17 +4,17 @@
 public abstract class BaseWorker {
 
     protected BinarySearchTree tree;
-    protected Integer sleepTime;
+    protected Integer period;
 
     public BaseWorker() {
     }
 
     /**
-     * @param tree      data structure to be consumed
-     * @param sleepTime specifies the period
+     * @param tree   data structure to be consumed
+     * @param period specifies the period
      */
-    public BaseWorker(BinarySearchTree tree, Integer sleepTime) {
+    public BaseWorker(BinarySearchTree tree, Integer period) {
         this.tree = tree;
-        this.sleepTime = sleepTime;
+        this.period = period;
     }
 }
