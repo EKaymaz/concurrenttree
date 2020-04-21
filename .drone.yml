@@ -1,0 +1,46 @@
+---
+kind: pipeline
+name: concurrenttree-pr
+type: docker
+
+platform:
+  os: linux
+  arch: amd64
+node:
+  instance: highmemory
+concurrency:
+  limit: 1
+steps:
+
+  - name: build-maven
+    commands:
+      - mvn clean install
+
+trigger:
+  event:
+    - pull_request
+---
+kind: pipeline
+name: concurrenttree-ci
+type: docker
+
+platform:
+  os: linux
+  arch: amd64
+node:
+  instance: highmemory
+concurrency:
+  limit: 1
+steps:
+
+  - name: build-maven
+    commands:
+      - mvn clean install
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+
+...
